@@ -1,1 +1,8 @@
 node_modules
+
+wordpress/vendor
+wordpress/.env
+
+.terraform
+.terraform.lock.*
+terraform.tfstate
