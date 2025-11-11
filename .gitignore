@@ -9,3 +9,7 @@ wordpress/wp-content/uploads/*
 .terraform.lock.*
 terraform.tfstate*
 terraform.tfstate.backup
+
+
+wordpress/wp-content/themes/**/**/node_modules
+wordpress/wp-content/themes/**/**/dist
