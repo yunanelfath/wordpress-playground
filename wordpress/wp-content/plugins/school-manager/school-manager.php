@@ -30,3 +30,9 @@ function school_manager_install() {
   require_once ABSPATH . 'wp-admin/includes/upgrade.php';
   dbDelta($sql);
 }
+
+// ✅ Load plugin files (routes & controllers)
+add_action('plugins_loaded', function() {
+  require_once plugin_dir_path(__FILE__) . 'controllers/school-controller.php';
+  require_once plugin_dir_path(__FILE__) . 'routes/school-route.php';
+});
