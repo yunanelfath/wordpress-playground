@@ -1,4 +1,9 @@
 <?php
+
+require_once get_template_directory() . '/models/BaseModel.php';
+require_once get_template_directory() . '/models/School.php';
+require_once get_template_directory() . '/controllers/SchoolController.php';
+
 function reactplayground_enqueue_scripts() {
     $dist_path = get_template_directory() . '/contents/dist/';
     $dist_uri  = get_template_directory_uri() . '/contents/dist/';
@@ -25,3 +30,9 @@ function reactplayground_enqueue_scripts() {
     );
 }
 add_action('wp_enqueue_scripts', 'reactplayground_enqueue_scripts');
+
+// For not logged-in users
+add_action('admin_post_nopriv_index_school', ['SchoolController', 'index']);
+
+// For logged-in users
+add_action('admin_post_store_school', ['SchoolController', 'store']);
