@@ -18,7 +18,7 @@ const FormRegister = () => {
         formData.append(key, data[key]);
       }
     }
-    const response = await fetch('/wp-admin/admin-post.php', {
+    const response = await fetch('/wp-admin/admin-ajax.php', {
       method: 'POST',
       body: formData,
     })
