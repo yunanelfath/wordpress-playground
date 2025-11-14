@@ -27,7 +27,7 @@ class SchoolController {
     } catch (\Exception $e) {
         
         status_header($e->getCode());
-        wp_send_json([
+        wp_send_json_error([
             'success' => false,
             'message' => $e->getMessage(),
         ]);
@@ -35,22 +35,37 @@ class SchoolController {
   }
 
   public static function store() {
-      $data = [
-          'name'    => sanitize_text_field($_POST['email']),
-          'address' => sanitize_text_field($_POST['address']),
-      ];
-
-      $schoolModel = new School();
-      $id = $schoolModel->create($data);
-
-
-      status_header(200);
-      wp_send_json(
-        [
-            'id' => $id, 
-            'message' => 'School created'
-        ]
-      );
+    try {
+        // 1. AUTHENTICATION CHECK
+        if (!is_user_logged_in()) {
+            throw new \Exception("You must be logged in to perform this action", 401);
+        }
+        $data = [
+            'name'    => sanitize_text_field($_POST['email']),
+            'address' => sanitize_text_field($_POST['address']),
+        ];
+  
+        $schoolModel = new School();
+        $id = $schoolModel->create($data);
+  
+  
+        status_header(200);
+        wp_send_json(
+          [
+              'id' => $id, 
+              'test'=> is_user_logged_in(),
+              'message' => 'School created'
+          ]
+        );
+    } catch (\Throwable $th) {
+        
+        error_log($th->getMessage());
+        status_header($th->getCode());
+        wp_send_json_error([
+            'success' => false,
+            'message' => $th->getMessage(),
+        ]);
+    }
   }
 
 }
