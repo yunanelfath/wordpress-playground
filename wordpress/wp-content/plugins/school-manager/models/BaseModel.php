@@ -1,7 +1,5 @@
 <?php
 
-namespace SchoolManager\Models;
-
 abstract class BaseModel {
     protected $table;
     protected $wpdb; // <-- declare it here

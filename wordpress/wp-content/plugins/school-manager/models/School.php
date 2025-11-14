@@ -1,7 +1,5 @@
 <?php
 
-namespace SchoolManager\Models;
-
 class School extends BaseModel {
     protected $table;
 

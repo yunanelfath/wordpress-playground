@@ -1,32 +1,8 @@
 <?php
-// routes/school-route.php
+// For not logged-in users
+add_action('admin_post_nopriv_index_school', ['SchoolController', 'index']);
 
-use SchoolManager\Controllers\SchoolController;
-
-add_action('rest_api_init', function() {
-  $controller = new SchoolController();
-
-  register_rest_route('school-manager/v1', '/schools', [
-      'methods'  => 'GET',
-      'callback' => [$controller, 'index'],
-      'permission_callback' => '__return_true', // change later if you need auth
-  ]);
-
-  register_rest_route('school-manager/v1', '/schools/(?P<id>\d+)', [
-      'methods'  => 'GET',
-      'callback' => [$controller, 'show'],
-      'permission_callback' => '__return_true',
-  ]);
-
-  register_rest_route('school-manager/v1', '/schools', [
-      'methods'  => 'POST',
-      'callback' => [$controller, 'store'],
-      'permission_callback' => '__return_true',
-  ]);
-
-  register_rest_route('school-manager/v1', '/schools/(?P<id>\d+)', [
-      'methods'  => 'DELETE',
-      'callback' => [$controller, 'destroy'],
-      'permission_callback' => '__return_true',
-  ]);
-});
+// For logged-in users
+add_action('wp_ajax_store_school', ['SchoolController', 'store']);
+// need to nopriv for same endpoint so it can trigger must authentication error message
+add_action('wp_ajax_nopriv_store_school', ['SchoolController', 'store']);

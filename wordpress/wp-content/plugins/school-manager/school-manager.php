@@ -33,6 +33,8 @@ function school_manager_install() {
 
 // ✅ Load plugin files (routes & controllers)
 add_action('plugins_loaded', function() {
-  require_once plugin_dir_path(__FILE__) . 'autoload.php';
-  require_once plugin_dir_path(__FILE__) . 'routes/api.php';
+  require_once plugin_dir_path(__FILE__) . '/models/BaseModel.php';
+  require_once plugin_dir_path(__FILE__) . '/models/School.php';
+  require_once plugin_dir_path(__FILE__) . '/controllers/SchoolController.php';
+  require_once plugin_dir_path(__FILE__) . '/routes/api.php';
 });
