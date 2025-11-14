@@ -5,7 +5,8 @@ module.exports = {
   mode: "development", // change to "production" when deploying
   entry: "./src/main.tsx",
   output: {
-    filename: "app.js",
+    filename: 'app.[contenthash].js',
+    clean: true,
     path: path.resolve(__dirname, "dist"),
   },
   resolve: {
